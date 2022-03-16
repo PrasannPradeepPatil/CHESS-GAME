@@ -1,5 +1,5 @@
 
-class Board:
+class Utils:
 
     # board constructor
     def __init__(self):
@@ -9,6 +9,18 @@ class Board:
         self.generateGrid()
         self.columnMap = {"a":0, "b":1, "c":2, "d":3, "e":4, "f":5, "g":6, "h":7}
         self.reverseColumnMap = {0: "a", 1: "b", 2: "c", 3: "d", 4: "e", 5: "f", 6: "g", 7: "h"}
+
+    # function to get the start and end positions of the pawn
+    def getMovePositions(self, currentPlayer):
+        print("Player " + str(currentPlayer) + "'s turn.")
+        startRow = input("Enter the row of the pawn to move: ")
+        startCol = input("Enter the column of the pawn to move: ")
+        endRow = input("Enter the row of the destination: ")
+        endCol = input("Enter the column of the destination: ")
+        print("")
+
+        return [(int(startRow),startCol),(int(endRow),endCol)]
+
 
     # function to populate initial grid with player 1 & 2 pawns
     def generateGrid(self):
@@ -26,7 +38,7 @@ class Board:
         print("    a b c d e f g h")
 
     # function to check the available capture moves for a given user
-    def availableCaptureMoves(self,user):
+    def availablecapturePositions(self,user):
         availableCaptures = []
         if user == 1:
             for i in range(self.height-1):
@@ -118,13 +130,13 @@ class Board:
 
         # check if valid move
         capturingMove = False
-        captureMoves = self.availableCaptureMoves(user)
-        if len(captureMoves) > 0:
+        capturePositions = self.availablecapturePositions(user)
+        if len(capturePositions) > 0:
             capturingMove = True
 
         if user == 1:
             if capturingMove:
-                if (start,end) not in captureMoves:
+                if (start,end) not in capturePositions:
                     print("You cannot move to that end spot from the given start spot!")
                     return False,False,None
             else:
@@ -133,7 +145,7 @@ class Board:
                     return False,False,None
         if user == 2:
             if capturingMove:
-                if (start, end) not in captureMoves:
+                if (start, end) not in capturePositions:
                     print("You cannot move to that end spot from the given start spot!")
                     return False,False,None
             else:
@@ -185,8 +197,8 @@ class Board:
 
     # check if a given user has no possible moves left and has therefore lost
     def checkNoMoves(self,user):
-        captureMoves = self.availableCaptureMoves(user)
-        if len(captureMoves) > 0: return False
+        capturePositions = self.availablecapturePositions(user)
+        if len(capturePositions) > 0: return False
 
         if user == 1:
             for i in range(self.height-1):

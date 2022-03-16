@@ -6,7 +6,7 @@
 4) Define your own code for running the game in **Game.py** as you wish otherwise use the default.
 
 
-## Project overview
+### Project overview
 
 - The game is played with pawns placed on the 2nd row from each player
 - Spots held by player 1 will have a "1", and likewise player 2 will have "2"

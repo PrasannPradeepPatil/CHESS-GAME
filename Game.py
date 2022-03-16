@@ -1,48 +1,42 @@
-import Board
+import Utils
 
 
 class Game:
-
     def __init__(self):
-        self.board = Board.Board()
+        self.board = Utils.Utils()
         self.board.printBoard()
 
     def playGame(self):
-        print("To make a move, you will enter row and column identifiers for both start and end coordinates ")
-        print("The rows should be integers, like '2', and the columns should be letters, like 'c'.")
-        print("")
-        playerHasWon = False
-        currentMove = 2
-        while not playerHasWon:
-            captureMoves = []
-            done = False
-            while not done:
-                print("Player " + str(currentMove) + " it's your turn.")
-                startRow = input("Enter the row of the pawn to move: ")
-                startCol = input("Enter the column of the pawn to move: ")
-                endRow = input("Enter the row of the destination: ")
-                endCol = input("Enter the column of the destination: ")
-                print("")
-                startTup = (int(startRow),startCol)
-                endTup = (int(endRow),endCol)
-                if startTup in captureMoves:
-                    print("You cannot move a pawn that captured an opponent's in the same turn. Try again.")
+        print("\nEnter the startRow, startColumn, endRow, endColumn for the pawn to move \nThe row must be integer and column must be a lowercase letter\n")
+
+        isGameEnded = False
+        currentPlayer = 2
+        while not isGameEnded:
+            capturePositions = []
+            isMovePlayed = False
+            while not isMovePlayed:
+                # Get pawn's start position and end positions position from user 
+                [startPosition,endPosition] = self.board.getMovePositions(currentPlayer)
+                
+                # if the pawn to move has captured the opponent pawn then dont move thant pawn 
+                if startPosition in capturePositions:
+                    print("The pawn you are trying to move has captured the opponent's pawn so try moving another pawn")
                     continue
-                result = self.board.movePawn(currentMove,startTup,endTup)
-                if result[0] is True:
-                    playerHasWon = True
-                    done = True
+
+                # move the pawn from start position to end position and change the variables affected by that move
+                [wonGame,changeUser,captureMoveEndingPosition] = self.board.movePawn(currentPlayer,startPosition,endPosition)
+                if wonGame is True:
+                    isGameEnded = True
+                    isMovePlayed = True
                     break
-                if result[1] is True:
-                    if currentMove == 1:
-                        currentMove = 2
-                    else:
-                        currentMove = 1
-                    done = True
+                if changeUser is True:
+                    currentPlayer = 2 if (currentPlayer == 1) else 1
+                    isMovePlayed = True
                 else:
-                    if result[2] is not None:
-                        captureMoves.append(result[2])
+                    if captureMoveEndingPosition is not None:
+                        capturePositions.append(captureMoveEndingPosition)
                         continue
+
 
 game = Game()
 game.playGame()

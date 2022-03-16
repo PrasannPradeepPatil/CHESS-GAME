@@ -4,86 +4,87 @@ class Utils:
     # board constructor
     def __init__(self):
         self.board = [[0]*8 for i in range(8)]
-        self.height = 8
-        self.width = 8
-        self.generateGrid()
-        self.columnMap = {"a":0, "b":1, "c":2, "d":3, "e":4, "f":5, "g":6, "h":7}
-        self.reverseColumnMap = {0: "a", 1: "b", 2: "c", 3: "d", 4: "e", 5: "f", 6: "g", 7: "h"}
+        self.totalColumns = 8
+        self.totalRows = 8
+        self.fillMatrix()
+        self.columnToRowMap = {"a":0, "b":1, "c":2, "d":3, "e":4, "f":5, "g":6, "h":7}
+        self.RowToColumnMap = {0: "a", 1: "b", 2: "c", 3: "d", 4: "e", 5: "f", 6: "g", 7: "h"}
 
     # function to get the start and end positions of the pawn
     def getMovePositions(self, currentPlayer):
         print("Player " + str(currentPlayer) + "'s turn.")
-        startRow = input("Enter the row of the pawn to move: ")
-        startCol = input("Enter the column of the pawn to move: ")
-        endRow = input("Enter the row of the destination: ")
-        endCol = input("Enter the column of the destination: ")
+        startRow = input("Enter the start row of the pawn to move: ")
+        startCol = input("Enter the start column of pawn to move: ")
+        endRow = input("Enter the destination row of the pawn to move: ")
+        endCol = input("Enter the destination column of the pawn to move: ")
         print("")
 
         return [(int(startRow),startCol),(int(endRow),endCol)]
 
 
-    # function to populate initial grid with player 1 & 2 pawns
-    def generateGrid(self):
-        for j in range(self.width):
-            self.board[1][j] = 1
-            self.board[6][j] = 2
+    # function to populate chess board for player1 and player2 pawns with "1" and "2" respectively
+    def fillMatrix(self):
+        for i in range(0,self.totalRows):
+            self.board[1][i] = 1
+            self.board[6][i] = 2
 
-    # function to print the board at any state
-    def printBoard(self):
-        for i in range(self.height):
-            print("(" + str(self.height - i) + ") ", end="")
-            for j in range(self.width):
+    # function to print the chess board 
+    def printMatrix(self):
+        print("    a b c d e f g h")
+        for i in range(0,self.totalColumns):
+            print("(" + str(self.totalColumns - i) + ") ", end="")
+            for j in range(self.totalRows):
                 print(str(self.board[i][j]) + " ", end="")
             print("")
-        print("    a b c d e f g h")
+        
 
-    # function to check the available capture moves for a given user
+    # function to check all the possible capture moves for a pawn
     def availablecapturePositions(self,user):
         availableCaptures = []
         if user == 1:
-            for i in range(self.height-1):
-                for j in range(self.width):
+            for i in range(self.totalColumns-1):
+                for j in range(self.totalRows):
                     if j == 0:
                         if self.board[i][j] == user and self.board[i+1][j+1] == 2:
-                            start = (self.height-i,self.reverseColumnMap[j])
-                            end = (self.height-i-1,self.reverseColumnMap[j+1])
+                            start = (self.totalColumns-i,self.RowToColumnMap[j])
+                            end = (self.totalColumns-i-1,self.RowToColumnMap[j+1])
                             availableCaptures.append((start,end))
                     if j == 7:
                         if self.board[i][j] == user and self.board[i+1][j-1] == 2:
-                            start = (self.height-i,self.reverseColumnMap[j])
-                            end = (self.height-i-1,self.reverseColumnMap[j-1])
+                            start = (self.totalColumns-i,self.RowToColumnMap[j])
+                            end = (self.totalColumns-i-1,self.RowToColumnMap[j-1])
                             availableCaptures.append((start,end))
                     else:
                         if self.board[i][j] == user and self.board[i+1][j+1] == 2:
-                            start = (self.height - i, self.reverseColumnMap[j])
-                            end = (self.height-i-1, self.reverseColumnMap[j+1])
+                            start = (self.totalColumns - i, self.RowToColumnMap[j])
+                            end = (self.totalColumns-i-1, self.RowToColumnMap[j+1])
                             availableCaptures.append((start,end))
                         if self.board[i][j] == user and self.board[i+1][j-1] == 2:
-                            start = (self.height-i,self.reverseColumnMap[j])
-                            end = (self.height-i-1,self.reverseColumnMap[j-1])
+                            start = (self.totalColumns-i,self.RowToColumnMap[j])
+                            end = (self.totalColumns-i-1,self.RowToColumnMap[j-1])
                             availableCaptures.append((start,end))
 
         if user == 2:
-            for i in range(self.height-1):
-                for j in range(self.width):
+            for i in range(self.totalColumns-1):
+                for j in range(self.totalRows):
                     if j == 0:
                         if self.board[i][j] == user and self.board[i-1][j+1] == 1:
-                            start = (self.height-i,self.reverseColumnMap[j])
-                            end = (self.height-i+1,self.reverseColumnMap[j+1])
+                            start = (self.totalColumns-i,self.RowToColumnMap[j])
+                            end = (self.totalColumns-i+1,self.RowToColumnMap[j+1])
                             availableCaptures.append((start,end))
                     if j == 7:
                         if self.board[i][j] == user and self.board[i-1][j-1] == 1:
-                            start = (self.height-i,self.reverseColumnMap[j])
-                            end = (self.height-i+1,self.reverseColumnMap[j-1])
+                            start = (self.totalColumns-i,self.RowToColumnMap[j])
+                            end = (self.totalColumns-i+1,self.RowToColumnMap[j-1])
                             availableCaptures.append((start,end))
                     else:
                         if self.board[i][j] == user and self.board[i-1][j+1] == 1:
-                            start = (self.height - i, self.reverseColumnMap[j])
-                            end = (self.height-i+1, self.reverseColumnMap[j+1])
+                            start = (self.totalColumns - i, self.RowToColumnMap[j])
+                            end = (self.totalColumns-i+1, self.RowToColumnMap[j+1])
                             availableCaptures.append((start,end))
                         if self.board[i][j] == user and self.board[i-1][j-1] == 1:
-                            start = (self.height-i,self.reverseColumnMap[j])
-                            end = (self.height-i+1,self.reverseColumnMap[j-1])
+                            start = (self.totalColumns-i,self.RowToColumnMap[j])
+                            end = (self.totalColumns-i+1,self.RowToColumnMap[j-1])
                             availableCaptures.append((start,end))
 
         return availableCaptures
@@ -109,7 +110,7 @@ class Utils:
         if isinstance(start[1],str) is False:
             print("Starting column coordinate not a letter!")
             return False,False,None
-        if start[1] not in self.columnMap:
+        if start[1] not in self.columnToRowMap:
             print("Invalid starting column coordinate given!")
             return False,False,None
         if isinstance(end[0],int) is False:
@@ -121,10 +122,10 @@ class Utils:
         if isinstance(end[1],str) is False:
             print("Ending column coordinate not a letter!")
             return False,False,None
-        if end[1] not in self.columnMap:
+        if end[1] not in self.columnToRowMap:
             print("Invalid ending column coordinate given!")
             return False,False,None
-        if self.board[self.height-start[0]][self.columnMap[start[1]]] != user:
+        if self.board[self.totalColumns-start[0]][self.columnToRowMap[start[1]]] != user:
             print("You do not have a pawn to move at that spot!")
             return False,False,None
 
@@ -140,7 +141,7 @@ class Utils:
                     print("You cannot move to that end spot from the given start spot!")
                     return False,False,None
             else:
-                if not ((end[0] == start[0] - 1) and (self.columnMap[end[1]] == self.columnMap[start[1]])):
+                if not ((end[0] == start[0] - 1) and (self.columnToRowMap[end[1]] == self.columnToRowMap[start[1]])):
                     print("You cannot move to that end spot from the given start spot!")
                     return False,False,None
         if user == 2:
@@ -149,18 +150,18 @@ class Utils:
                     print("You cannot move to that end spot from the given start spot!")
                     return False,False,None
             else:
-                if not ((end[0] == start[0] + 1) and (self.columnMap[end[1]] == self.columnMap[start[1]])):
+                if not ((end[0] == start[0] + 1) and (self.columnToRowMap[end[1]] == self.columnToRowMap[start[1]])):
                     print("You cannot move to that end spot from the given start spot!")
                     return False,False,None
         if not capturingMove:
-            if self.board[self.height - end[0]][self.columnMap[end[1]]] == opponent:
+            if self.board[self.totalColumns - end[0]][self.columnToRowMap[end[1]]] == opponent:
                 print("You cannot move to that end spot from the given start spot!")
                 return False,False,None
 
         # do the move & display new board
-        self.board[self.height - end[0]][self.columnMap[end[1]]] = user
-        self.board[self.height - start[0]][self.columnMap[start[1]]] = 0
-        self.printBoard()
+        self.board[self.totalColumns - end[0]][self.columnToRowMap[end[1]]] = user
+        self.board[self.totalColumns - start[0]][self.columnToRowMap[start[1]]] = 0
+        self.printMatrix()
 
         # check if either user has won after this move
         if self.checkIfWon(user):
@@ -184,12 +185,12 @@ class Utils:
             return False
         # check for user 1
         if user == 1:
-            for j in range(self.width):
+            for j in range(self.totalRows):
                 if self.board[-1][j] == 1:
                     return True
         # check for user 2
         if user == 2:
-            for j in range(self.width):
+            for j in range(self.totalRows):
                 if self.board[0][j] == 2:
                     return True
 
@@ -201,14 +202,14 @@ class Utils:
         if len(capturePositions) > 0: return False
 
         if user == 1:
-            for i in range(self.height-1):
-                for j in range(self.width):
+            for i in range(self.totalColumns-1):
+                for j in range(self.totalRows):
                     if self.board[i][j] == user and self.board[i+1][j] == 0:
                         return False
 
         if user == 2:
-            for i in range(self.height-1):
-                for j in range(self.width):
+            for i in range(self.totalColumns-1):
+                for j in range(self.totalRows):
                     if self.board[i][j] == user and self.board[i-1][j] == 0:
                         return False
         return True

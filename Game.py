@@ -4,7 +4,7 @@ import Utils
 class Game:
     def __init__(self):
         self.board = Utils.Utils()
-        self.board.printBoard()
+        self.board.printMatrix()
 
     def playGame(self):
         print("\nEnter the startRow, startColumn, endRow, endColumn for the pawn to move \nThe row must be integer and column must be a lowercase letter\n")
@@ -17,7 +17,7 @@ class Game:
             while not isMovePlayed:
                 # Get pawn's start position and end positions position from user 
                 [startPosition,endPosition] = self.board.getMovePositions(currentPlayer)
-                
+
                 # if the pawn to move has captured the opponent pawn then dont move thant pawn 
                 if startPosition in capturePositions:
                     print("The pawn you are trying to move has captured the opponent's pawn so try moving another pawn")

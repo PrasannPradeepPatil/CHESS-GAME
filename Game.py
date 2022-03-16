@@ -8,8 +8,6 @@ class Game:
         self.board.printBoard()
 
     def playGame(self):
-        print("Welcome to a new game of EverChess!")
-        print("")
         print("To make a move, you will enter row and column identifiers for both start and end coordinates ")
         print("The rows should be integers, like '2', and the columns should be letters, like 'c'.")
         print("")

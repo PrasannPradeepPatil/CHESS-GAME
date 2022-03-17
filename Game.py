@@ -3,10 +3,25 @@ import Utils
 
 class Game:
     def __init__(self):
+        '''
+        Class constructor
+        '''
         self.board = Utils.Utils()
         self.board.printMatrix()
 
     def playGame(self):
+        '''
+        Summary:
+        function to play the game
+
+        Parameters:
+        no parameters
+
+
+        Returns:
+        void
+
+        '''
         print("\nEnter the startRow, startColumn, endRow, endColumn for the pawn to move \nThe row must be integer and column must be a lowercase letter\n")
 
         isGameEnded = False
@@ -24,7 +39,7 @@ class Game:
                     continue
 
                 # move the pawn from start position to end position and change the variables affected by that move
-                [wonGame,changeUser,captureMoveEndingPosition] = self.board.movePawn(currentPlayer,startPosition,endPosition)
+                [wonGame,changeUser,captureMoveEndingPosition] = self.board.pawnMove(currentPlayer,startPosition,endPosition)
                 if wonGame is True:
                     isGameEnded = True
                     isMovePlayed = True
@@ -38,5 +53,9 @@ class Game:
                         continue
 
 
+
+
+
+######DRIVER CODE###########
 game = Game()
 game.playGame()

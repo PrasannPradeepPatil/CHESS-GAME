@@ -20,7 +20,7 @@ class Utils:
         takes the start and end positions of the pawn  as input from user
          
         Parameters:
-        user(int) : type of user ie 1 or 2 
+        user(int) : type of user ie 'b' or 'w' 
 
         Returns:
         movePositions(list) : list of tuples (startRow,startColumn) (endRow,endColumn)
@@ -41,7 +41,7 @@ class Utils:
     def fillMatrix(self):
         '''
         Summary:
-        function to populate chess board for player1 and player2 pawns with "1" and "2" respectively
+        function to populate chess board for player1 and player2 pawns with "'b'" and "'w'" respectively
          
         Parameters:
         no input parameters
@@ -50,8 +50,8 @@ class Utils:
         void
         '''
         for i in range(0,self.totalRows):
-            self.board[1][i] = 1
-            self.board[6][i] = 2
+            self.board[1][i] = 'b'
+            self.board[6][i] = 'w'
 
     def printMatrix(self):
         '''
@@ -79,54 +79,54 @@ class Utils:
         return all the possible capture moves for a pawn  
          
         Parameters:
-        user(int) : type of user ie 1 or 2 
+        user(int) : type of user ie 'b' or 'w' 
 
         Returns:
         availableCapturePositions(list) : list of the available capture positions
         '''
         availableCapturePositions = []
-        if user == 1:
+        if user == 'b':
             for i in range(self.totalColumns-1):
                 for j in range(self.totalRows):
                     if j == 0:
-                        if self.board[i][j] == user and self.board[i+1][j+1] == 2:
+                        if self.board[i][j] == user and self.board[i+1][j+1] == 'w':
                             start = (self.totalColumns-i,self.columnEquivalent[j])
                             end = (self.totalColumns-i-1,self.columnEquivalent[j+1])
                             availableCapturePositions.append((start,end))
                     if j == 7:
-                        if self.board[i][j] == user and self.board[i+1][j-1] == 2:
+                        if self.board[i][j] == user and self.board[i+1][j-1] == 'w':
                             start = (self.totalColumns-i,self.columnEquivalent[j])
                             end = (self.totalColumns-i-1,self.columnEquivalent[j-1])
                             availableCapturePositions.append((start,end))
                     else:
-                        if self.board[i][j] == user and self.board[i+1][j+1] == 2:
+                        if self.board[i][j] == user and self.board[i+1][j+1] == 'w':
                             start = (self.totalColumns - i, self.columnEquivalent[j])
                             end = (self.totalColumns-i-1, self.columnEquivalent[j+1])
                             availableCapturePositions.append((start,end))
-                        if self.board[i][j] == user and self.board[i+1][j-1] == 2:
+                        if self.board[i][j] == user and self.board[i+1][j-1] == 'w':
                             start = (self.totalColumns-i,self.columnEquivalent[j])
                             end = (self.totalColumns-i-1,self.columnEquivalent[j-1])
                             availableCapturePositions.append((start,end))
 
-        if user == 2:
+        if user == 'w':
             for i in range(self.totalColumns-1):
                 for j in range(self.totalRows):
                     if j == 0:
-                        if self.board[i][j] == user and self.board[i-1][j+1] == 1:
+                        if self.board[i][j] == user and self.board[i-1][j+1] == 'b':
                             start = (self.totalColumns-i,self.columnEquivalent[j])
                             end = (self.totalColumns-i+1,self.columnEquivalent[j+1])
                             availableCapturePositions.append((start,end))
                     if j == 7:
-                        if self.board[i][j] == user and self.board[i-1][j-1] == 1:
+                        if self.board[i][j] == user and self.board[i-1][j-1] == 'b':
                             start = (self.totalColumns-i,self.columnEquivalent[j])
                             end = (self.totalColumns-i+1,self.columnEquivalent[j-1])
                             availableCapturePositions.append((start,end))
                     else:
-                        if self.board[i][j] == user and self.board[i-1][j+1] == 1:
+                        if self.board[i][j] == user and self.board[i-1][j+1] == 'b':
                             start = (self.totalColumns - i, self.columnEquivalent[j])
                             end = (self.totalColumns-i+1, self.columnEquivalent[j+1])
                             availableCapturePositions.append((start,end))
-                        if self.board[i][j] == user and self.board[i-1][j-1] == 1:
+                        if self.board[i][j] == user and self.board[i-1][j-1] == 'b':
                             start = (self.totalColumns-i,self.columnEquivalent[j])
                             end = (self.totalColumns-i+1,self.columnEquivalent[j-1])
                             availableCapturePositions.append((start,end))
@@ -140,7 +140,7 @@ class Utils:
         function to move a pawn for a given user, start and end postion
 
         Parameters:
-        user(int) : type of user ie 1 or 2
+        user(int) : type of user ie 'b' or 'w'
         start(list): list of [startRow,startColumn]
         end(list) : list of [endRow,endColumn]
 
@@ -149,8 +149,8 @@ class Utils:
 
         '''
         #check input user validity 
-        if user not in [1,2]:
-            print("Invalid user , User must be 1 or 2")
+        if user not in ['b','w']:
+            print("Invalid user , User must be 'b' or 'w'")
             return False,False,None
 
         # check input start and end coordinates validity  
@@ -182,11 +182,11 @@ class Utils:
             print("End column invalid")
             return False,False,None
         if self.board[self.totalColumns- startRow][self.rowEquivalent[startColumn]   ] != user:
-            print("Pawn cant be moved")
+            print("Pawn cant be moved as" + user + " is not present at that position")
             return False,False,None
 
         # set opponent based on user
-        opponent = 2 if user == 1 else 1  
+        opponent = 'w' if user == 'b' else 'b'  
 
         # set capturing move pased on available capture position for user
         isCapturingMove = False
@@ -195,27 +195,27 @@ class Utils:
             isCapturingMove = True
 
         # check if the move is valid  
-        if user == 1:
+        if user == 'b':
             if isCapturingMove:
                 if (start,end) not in capturePositions:
-                    print("The move from start to end position cannot be made")
+                    print("This move cannot be made as there is a capturing move available, please make a capturing move")
                     return False,False,None
             else:
                 if not ((end[0] == start[0] - 1) and (self.rowEquivalent[end[1]] == self.rowEquivalent[start[1]])):
-                    print("The move from start to end position cannot be made")
+                    print("The move cannot be made as you cant move the pawn in reverse direction")
                     return False,False,None
-        if user == 2:
+        if user == 'w':
             if isCapturingMove:
                 if (start, end) not in capturePositions:
-                    print("The move from start to end position cannot be made")
+                    print("This move cannot be made as there is a  capturing move available, please make capturing move")
                     return False,False,None
             else:
                 if not ((end[0] == start[0] + 1) and (self.rowEquivalent[end[1]] == self.rowEquivalent[start[1]])):
-                    print("The move from start to end position cannot be made")
+                    print("The move cannot be made as you cant move the pawn in reverse direction")
                     return False,False,None
         if not isCapturingMove:
             if self.board[self.totalColumns - end[0]][self.rowEquivalent[end[1]]] == opponent:
-                print("The move from start to end position cannot be made!")
+                print("The move cannot be made as there is an opponenyt just in front of your pawn")
                 return False,False,None
 
         # move the pawn by setting new position with user and old position with 0
@@ -244,7 +244,7 @@ class Utils:
         function to check if user has won the game
 
         Parameters:
-        user(int) : type of user ie 1 or 2
+        user(int) : type of user ie 'b' or 'w'
 
 
         Returns:
@@ -252,18 +252,18 @@ class Utils:
 
         '''
         # check input user validity
-        if user not in [1,2]:
+        if user not in ['b','w']:
             print("You have entered invalid input for user.")
             return False
-        # check if user 1 has won
-        if user == 1:
+        # check if user 'b' has won
+        if user == 'b':
             for j in range(self.totalRows):
-                if self.board[-1][j] == 1:
+                if self.board[-1][j] == 'b':
                     return True
-        # check if user 2 has won
-        if user == 2:
+        # check if user 'w' has won
+        if user == 'w':
             for j in range(self.totalRows):
-                if self.board[0][j] == 2:
+                if self.board[0][j] == 'w':
                     return True
 
         return False
@@ -272,10 +272,10 @@ class Utils:
     def userHasNoMoves(self,user):
         '''
         Summary:
-        function to check if user has moves ir nit
+        function to check if user has moves ir not
 
         Parameters:
-        user(int) : type of user ie 1 or 2
+        user(int) : type of user ie 'b' or 'w'
 
 
         Returns:
@@ -286,14 +286,14 @@ class Utils:
         availablecapturePositionss = self.availablecapturePositions(user)
         if len(availablecapturePositionss) > 0: return False
 
-        # check if user 1 has moves
-        if user == 1:
+        # check if user 'b' has moves
+        if user == 'b':
             for i in range(self.totalColumns-1):
                 for j in range(self.totalRows):
                     if self.board[i][j] == user and self.board[i+1][j] == 0:
                         return False
-        # check if user 2 has won
-        if user == 2:
+        # check if user 'w' has moves
+        if user == 'w':
             for i in range(self.totalColumns-1):
                 for j in range(self.totalRows):
                     if self.board[i][j] == user and self.board[i-1][j] == 0:

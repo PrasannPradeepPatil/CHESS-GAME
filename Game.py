@@ -25,7 +25,7 @@ class Game:
         print("\nEnter the startRow, startColumn, endRow, endColumn for the pawn to move \nThe row must be integer and column must be a lowercase letter\n")
 
         isGameEnded = False
-        currentPlayer = 2
+        currentPlayer = 'w'
         while not isGameEnded:
             capturePositions = []
             isMovePlayed = False
@@ -45,7 +45,7 @@ class Game:
                     isMovePlayed = True
                     break
                 if changeUser is True:
-                    currentPlayer = 2 if (currentPlayer == 1) else 1
+                    currentPlayer = 'w' if (currentPlayer == 'b') else 'b'
                     isMovePlayed = True
                 else:
                     if captureMoveEndingPosition is not None:

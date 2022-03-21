@@ -1,4 +1,4 @@
-### Running The code
+# Running The code
 1) Install pytg=hon on your system
 2) Navigate to the directory of Game.py 
 3) Run the command Game.py or python Game.py
@@ -7,7 +7,7 @@
 5) press CNTRL + C to exit the game in between
 
 
-For example:
+## Example:
 > python Game.py
 ```
     a b c d e f g h

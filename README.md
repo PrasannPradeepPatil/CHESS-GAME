@@ -9,7 +9,7 @@
 
 For example:
 > python Game.py
-
+```
     a b c d e f g h
 (8) 0 0 0 0 0 0 0 0 
 (7) b b b b b b b b 
@@ -57,6 +57,8 @@ Player w's turn.
 Enter the start row of the pawn to move:
 
 and so on......
+
+```
 
 
 

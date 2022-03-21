@@ -93,7 +93,7 @@ class Utils:
                             start = (self.totalColumns-i,self.columnEquivalent[j])
                             end = (self.totalColumns-i-1,self.columnEquivalent[j+1])
                             availableCapturePositions.append((start,end))
-                    if j == 7:
+                    elif j == 7:
                         if self.board[i][j] == user and self.board[i+1][j-1] == 'w':
                             start = (self.totalColumns-i,self.columnEquivalent[j])
                             end = (self.totalColumns-i-1,self.columnEquivalent[j-1])
@@ -116,7 +116,7 @@ class Utils:
                             start = (self.totalColumns-i,self.columnEquivalent[j])
                             end = (self.totalColumns-i+1,self.columnEquivalent[j+1])
                             availableCapturePositions.append((start,end))
-                    if j == 7:
+                    elif j == 7:
                         if self.board[i][j] == user and self.board[i-1][j-1] == 'b':
                             start = (self.totalColumns-i,self.columnEquivalent[j])
                             end = (self.totalColumns-i+1,self.columnEquivalent[j-1])
@@ -202,7 +202,7 @@ class Utils:
                     return False,False,None
             else:
                 if not ((end[0] == start[0] - 1) and (self.rowEquivalent[end[1]] == self.rowEquivalent[start[1]])):
-                    print("The move cannot be made as you cant move the pawn in reverse direction")
+                    print("The move cannot be made as you cant move the pawn in reverse direction and can make only single move")
                     return False,False,None
         if user == 'w':
             if isCapturingMove:
@@ -211,7 +211,7 @@ class Utils:
                     return False,False,None
             else:
                 if not ((end[0] == start[0] + 1) and (self.rowEquivalent[end[1]] == self.rowEquivalent[start[1]])):
-                    print("The move cannot be made as you cant move the pawn in reverse direction")
+                    print("The move cannot be made as you cant move the pawn in reverse direction and can make only single move")
                     return False,False,None
         if not isCapturingMove:
             if self.board[self.totalColumns - end[0]][self.rowEquivalent[end[1]]] == opponent:

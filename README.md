@@ -1,19 +1,62 @@
 ### Running The code
+1) Install pytg=hon on your system
+2) Navigate to the directory of Game.py 
+3) Run the command Game.py or python Game.py
+4) You will be prompted to enter the inputs. Enter the start row, start column, end row and end column
+   The game will ask to give inputs till a player wins or has no moves lefy
+5) press CNTRL + C to exit the game in between
 
-'b') Install python on your system and check if python is installed by running the command py
-'w') Navigate to the directory of Game.py 
-3) Run the command Game.py
-4) Define your own code for running the game in **Game.py** as you wish otherwise use the default.
 
+For example:
+> python Game.py
 
-### Project overview
+    a b c d e f g h
+(8) 0 0 0 0 0 0 0 0 
+(7) b b b b b b b b 
+(6) 0 0 0 0 0 0 0 0
+(5) 0 0 0 0 0 0 0 0
+(4) 0 0 0 0 0 0 0 0
+(3) 0 0 0 0 0 0 0 0
+(2) w w w w w w w w
+(1) 0 0 0 0 0 0 0 0
 
-- The game is played with pawns placed on the 2nd row from each player
-- Spots held by player 'b' will have a "'b'", and likewise player 'w' will have "'w'"
-- Player 'w' moves first
-- Pawns can move forward one space to an empty location, or diagonally one space to capture an opponent’s pawn at that location.
-- A player must capture an opponent’s pawn if a capturing move is available.
-- On any capturing move, the player immediately moves again with another pawn that has not yet moved that turn.
-- The first player to get a pawn to the opposite end of the board wins, unless a player is left without any move, in which case the   other player immediately wins.
+Enter the startRow, startColumn, endRow, endColumn for the pawn to move
+The row must be integer and column must be a lowercase letter
+
+Player w's turn.
+Enter the start row of the pawn to move: 2
+Enter the start column of pawn to move: a
+Enter the destination row of the pawn to move: 3
+Enter the destination column of the pawn to move: a
+    a b c d e f g h
+(8) 0 0 0 0 0 0 0 0
+(7) b b b b b b b b
+(6) 0 0 0 0 0 0 0 0
+(5) 0 0 0 0 0 0 0 0
+(4) 0 0 0 0 0 0 0 0
+(3) w 0 0 0 0 0 0 0
+(2) 0 w w w w w w w
+(1) 0 0 0 0 0 0 0 0
+
+Player b's turn.
+Enter the start row of the pawn to move: 7
+Enter the start column of pawn to move: b
+Enter the destination row of the pawn to move: 6
+Enter the destination column of the pawn to move: b
+    a b c d e f g h
+(8) 0 0 0 0 0 0 0 0
+(7) b 0 b b b b b b
+(6) 0 b 0 0 0 0 0 0
+(5) 0 0 0 0 0 0 0 0
+(4) 0 0 0 0 0 0 0 0
+(3) w 0 0 0 0 0 0 0
+(2) 0 w w w w w w w
+(1) 0 0 0 0 0 0 0 0
+
+Player w's turn.
+Enter the start row of the pawn to move:
+
+and so on......
+
 
 

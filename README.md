@@ -1,5 +1,5 @@
 # Running The code
-1) Install pytg=hon on your system
+1) Install python on your system
 2) Navigate to the directory of Game.py 
 3) Run the command Game.py or python Game.py
 4) You will be prompted to enter the inputs. Enter the start row, start column, end row and end column
